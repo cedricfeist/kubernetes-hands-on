@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: message-board
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: message-board-pvc
+  namespace: message-board
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: "1Gi"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: message-board
+    namespace: message-board
+    labels:
+        app: message-board
+        name: message-board
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: message-board
+  template:
+    metadata:
+      labels:
+        name: message-board
+    spec:
+      containers:
+      - name: message-board
+        image: michzimm/message_board:version1
+        volumeMounts:
+        - name: demovolume1
+          mountPath: /sqldb
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
+      volumes:
+      - name: demovolume1
+        persistentVolumeClaim:
+          claimName: message-board-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: message-board
+  namespace: message-board
+  labels:
+    name: message-board
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+    nodePort: 30005
+  selector:
+    name: message-board

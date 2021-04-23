@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: hostname
+  namespace: hostname
+  labels:
+    name: hostname
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 8082
+    targetPort: 8000
+    protocol: TCP
+    nodePort: 30010
+  selector:
+    app: hostname

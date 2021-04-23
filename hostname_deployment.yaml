@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hostname
+  namespace: hostname
+spec:
+  selector:
+    matchLabels:
+      app: hostname
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template:
+    metadata:
+      labels:
+        app: hostname
+    spec:
+      containers:
+      - name: hostname
+        image: oguzpastirmaci/hostname
+        ports:
+        - containerPort: 8000
