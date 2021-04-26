@@ -2,6 +2,10 @@
 
 Welcome to this introductory Hands-On session for Kubernetes. 
 
+###Table of Contents
+https://github.com/cedricfeist/kubernetes-hands-on#0-starting-minikube
+https://github.com/cedricfeist/kubernetes-hands-on#1-introduction-to-kubectl
+
 Start by cloning the repo into your favourite directory.
 
 ```git clone https://github.com/cedricfeist/kubernetes-hands-on```
@@ -88,7 +92,7 @@ Or, for more involved troubleshooting, opening a terminal session to a container
 ```kubectl exec --stdin --tty my-pod-name -- /bin/sh```
 
 
-### 2. Run pod
+### 2. Starting a Pod - Imperative
 
 It's time to start our first Pod. 
 
@@ -132,7 +136,7 @@ Because we manually created this app, we will delete it for now as there are bet
 ```kubectl delete pod firstpod```
 
 
-### 3. Declarative Deployment
+### 3. Declarative Deployments
 
 Before entering the next commands, take a look at the hostname-namespace, hostname-deployment, and hostname-service YAML files in the cloned repository. 
 
@@ -171,7 +175,7 @@ You can leave these pods running, but if you want to delete them here are the st
 ```kubectl delete -f hostname -service -n hostname```
 
 
-### 4. Stateless vs Stateful 
+### 4. Stateless vs Stateful Apps
 
 Before we find out how Persistent Volumes and Persistent Volume Claims can help us with designing Apps, look at message-board-all-in-one.yaml. Instead of keeping each resource in a separate file, we have combined them all in one YAML file which contains the entire configuration of the application. 
 
