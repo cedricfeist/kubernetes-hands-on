@@ -2,7 +2,12 @@
 
 Welcome to this introductory Hands-On session for Kubernetes. 
 
-0. minikube start
+## 0. Starting Minikube
+
+Reference on how to install minikube, as well as potential errors, check the [website](https://minikube.sigs.k8s.io/docs/start/).
+
+``` minikube start``````
+
 
 > :warning: Remember to start docker desktop if using docker
 
@@ -16,11 +21,11 @@ The second command enables completion
 alias k=kubectl
 complete -F __start_kubectl k
 
-## 1. kubectl
-``` kubectl get nodes / get no```
-```kubectl get namespaces / get ns```
-```kubectl get pods -A / get po -A```
-```kubectl ```
+## 1. Introduction to kubectl
+```kubectl get nodes / get no```/n
+```kubectl get namespaces / get ns```/n
+```kubectl get pods -A / get po -A```/n
+```kubectl ```/n
 
 
 ## 2. Run pod
