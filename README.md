@@ -2,46 +2,63 @@
 
 Welcome to this introductory Hands-On session for Kubernetes. 
 
-## 0. Starting Minikube
+### 0. Starting Minikube
 
 Reference on how to install minikube, as well as potential errors, check the [website](https://minikube.sigs.k8s.io/docs/start/).
 
 ``` minikube start``````
 
+> :warning: Remember to start docker desktop if using docker as driver
 
-> :warning: Remember to start docker desktop if using docker
-
-:warning: If you have an older installation of Minikube and are getting errors, try:
+> :warning: If you have an older installation of Minikube and are getting errors, try:
 
 ```minikube delete --all --purge```
 
 ```docker system prune```
 
-On Mac: 
+#### (Optional but convenient) On Mac: 
 
-You can change kubectl to the alias k - stops typos and is faster. 
+You can easily create an Alias for kubectl. This way you can enter "k" instead of kubectl every time you want to enter a kubernetes command. 
 
-The second command enables completion which allows you to press Tab and see the available commands
+Completion can also be enabled for this alias, this way Tab can be pressed to show a list of available commands (instead of entering help every time).
+
+##### On Mac:
+
+###### BASH
+
+```source <(kubectl completion bash)``` This sets up autocompletion for the current shell
+
+```echo "source <(kubectl completion bash)" >> ~/.bashrc``` This sets up autocomplete permanently - but only takes effect for new bash shells
+
 
 ```alias k=kubectl```
 
 ```complete -F __start_kubectl k```
 
+###### ZSH
 
-[Kubernetes Cheat Sheet](https://linuxacademy.com/site-content/uploads/2019/04/Kubernetes-Cheat-Sheet_07182019.pdf)
+```source <(kubectl completion zsh)```
+
+```echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc```
+
+#### Convenient Resources
+
+[Official Kubernetes.io CheatSheet Page](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+
+[A more compact Kubernetes Cheat Sheet pdf](https://linuxacademy.com/site-content/uploads/2019/04/Kubernetes-Cheat-Sheet_07182019.pdf)
 
 
-## 1. Introduction to kubectl
+### 1. Introduction to kubectl
 ```kubectl get nodes / get no```
 
 ```kubectl get namespaces / get ns```
 
 ```kubectl get pods -A / get po -A```
 
-```kubectl ```
+```kubectl logs kube-apiserver-minikube -n kube-system```
 
 
-## 2. Run pod
+### 2. Run pod
 ```kubectl run firstpod --image=oguzpastirmaci/hostname```
 
 ```kubectl expose pod firstpod --port=8000 --type=LoadBalancer```
@@ -70,7 +87,7 @@ open localhost:8000
 ```kubectl delete pod firstpod```
 
 
-## 3. Declarative Deployment
+### 3. Declarative Deployment
 
 look at hostname-namespace, deployment, and service YAML files 
 
@@ -105,7 +122,7 @@ refresh page (ctrl/cmd + shift + r) to show change between pods
 ```kubectl delete -f hostname -service -n hostname```
 
 
-## 4. Stateless vs Stateful 
+### 4. Stateless vs Stateful 
 
 look at message-board-all-in-one.yaml
 
@@ -129,7 +146,7 @@ access website - sign up and write something
 reload website - data still there even though pod was deleted
 
 
-## 5. Network Policy
+### 5. Network Policy
 
 look at guestbook-all-in-one
 
