@@ -1,16 +1,22 @@
 0. minikube start
 
-remember to start docker desktop
+Remember to start docker desktop if using docker
 
-if problems
+If you have an older installation of Minikube and are getting errors, try:
 minikube delete --all --purge
 docker system prune
+
+On Mac: 
+You can change kubectl to the alias k - stops typos and is faster. 
+The second command enables completion
+alias k=kubectl
+complete -F __start_kubectl k
 
 1. kubectl
 kubectl get nodes / get no
 kubectl get namespaces / get ns
 kubectl get pods -A / get po -A
-
+kubectl 
 
 
 2. Run pod
