@@ -56,18 +56,32 @@ If you are using ZSH, use these steps:
 
 
 ### 1. Introduction to kubectl
-```kubectl get nodes```
 
-```kubectl get namespaces```
+Kubernetes can be interacted with via the Kubernetes command line interface, Kubectl. Kubectl talks to the Kubernetes API to interact with the cluster. When starting Minikube, kubectl will automatically be configured to connect to the minikube cluster. 
+
+First, we will try some basic "read" commands to show how you can get information from your cluster. See the cheat sheets above for some more commands to try, as well as shortened versions of the commands for real Pros. :cool:
+
+```kubectl get nodes``` shows the nodes that belong to your Kubernetes cluster. Try adding the flag `-o wide` to the command to see how the output changes. 
+
+
+Namespaces are a logical way to group resources in a cluster into separate spaces. Take a look which Namespaces exist in minikube clusters by default.
+
+```kubectl get namespaces``` 
 
 ```kubectl get pods -A``` - the -A flag shows pods in all Namespaces with an extra column to show which namespace the pod belongs to. 
 
+Some other useful commands include checking the logs of a container running in a Pod:
+
 ```kubectl logs my-pod-name```
 
+Or, for more involved troubleshooting, opening a terminal session to a container. 
 ```kubectl exec --stdin --tty my-pod-name -- /bin/sh```
 
 
 ### 2. Run pod
+
+It's time to start our first Pod. 
+
 ```kubectl run firstpod --image=oguzpastirmaci/hostname```
 
 ```kubectl expose pod firstpod --port=8000 --type=LoadBalancer```
