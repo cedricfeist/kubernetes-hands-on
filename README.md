@@ -26,10 +26,11 @@ Completion can also be enabled for this alias, this way Tab can be pressed to sh
 
 ###### BASH
 
+If you are using BASH, use these steps:
+
 ```source <(kubectl completion bash)``` This sets up autocompletion for the current shell
 
 ```echo "source <(kubectl completion bash)" >> ~/.bashrc``` This sets up autocomplete permanently - but only takes effect for new bash shells
-
 
 ```alias k=kubectl```
 
@@ -37,9 +38,15 @@ Completion can also be enabled for this alias, this way Tab can be pressed to sh
 
 ###### ZSH
 
+If you are using ZSH, use these steps:
+
 ```source <(kubectl completion zsh)```
 
 ```echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc```
+
+```alias k=kubectl```
+
+```complete -F __start_kubectl k```
 
 #### Convenient Resources
 
@@ -49,13 +56,15 @@ Completion can also be enabled for this alias, this way Tab can be pressed to sh
 
 
 ### 1. Introduction to kubectl
-```kubectl get nodes / get no```
+```kubectl get nodes```
 
-```kubectl get namespaces / get ns```
+```kubectl get namespaces```
 
-```kubectl get pods -A / get po -A```
+```kubectl get pods -A``` - the -A flag shows pods in all Namespaces with an extra column to show which namespace the pod belongs to. 
 
-```kubectl logs kube-apiserver-minikube -n kube-system```
+```kubectl logs my-pod-name```
+
+```kubectl exec --stdin --tty my-pod-name -- /bin/sh```
 
 
 ### 2. Run pod
@@ -71,7 +80,6 @@ Completion can also be enabled for this alias, this way Tab can be pressed to sh
 ```kubectl get service - check localhost and port number```
 
 open localhost:8000
-
 
 ```kubectl get service```
 
