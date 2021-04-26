@@ -5,17 +5,11 @@ Welcome to this introductory Hands-On session for Kubernetes.
 ###Table of Contents
 
 [Starting Minikube](https://github.com/cedricfeist/kubernetes-hands-on#0-starting-minikube)
-
 [Introduction to kubectl](https://github.com/cedricfeist/kubernetes-hands-on#1-introduction-to-kubectl)
-
 [Starting a Pod - Imperative](https://github.com/cedricfeist/kubernetes-hands-on#2-starting-a-pod---imperative)
-
 [Declarative Deployments](https://github.com/cedricfeist/kubernetes-hands-on#3-declarative-deployments)
-
 [Stateless vs Stateful Apps](https://github.com/cedricfeist/kubernetes-hands-on#4-stateless-vs-stateful-apps)
-
 [Network Policy](https://github.com/cedricfeist/kubernetes-hands-on#5-network-policy)
-
 
 Start by cloning the repo into your favourite directory.
 
