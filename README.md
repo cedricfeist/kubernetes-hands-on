@@ -10,13 +10,13 @@ Start by cloning the repo into your favourite directory.
 
 ### 0. Starting Minikube
 
-Reference on how to install minikube, as well as potential errors, check the [website](https://minikube.sigs.k8s.io/docs/start/).
+Reference on how to install minikube, as well as potential errors, check the [kubernetes website](https://minikube.sigs.k8s.io/docs/start/).
 
-``` minikube start``````
+```minikube start```
 
 > :warning: Remember to start docker desktop if using docker as driver
 
-> :warning: If you have an older installation of Minikube and are getting errors, try:
+> :warning: If you had an old installation of Minikube which you updated and are getting errors, try:
 
 ```minikube delete --all --purge```
 
@@ -173,60 +173,78 @@ You can leave these pods running, but if you want to delete them here are the st
 
 ### 4. Stateless vs Stateful 
 
-look at message-board-all-in-one.yaml
+Before we find out how Persistent Volumes and Persistent Volume Claims can help us with designing Apps, look at message-board-all-in-one.yaml. Instead of keeping each resource in a separate file, we have combined them all in one YAML file which contains the entire configuration of the application. 
+
+Once you have taken a look, apply the configuration...
 
 ```kubectl apply -f message-board-all-in-one.yaml```
 
+...and see all the resources created. 
+
 ```kubectl get all -n message-board```
 
+Some of the pods might take a while to be fully available. Instead of running the same command over and over to monitor the readiness of a resource, we can use the `-w` flag to watch the resource for changes. 
 
-Open up a new Terminal window ```minikube tunnel``` 
+```kubectl get pods -n message-board -w```
 
-localhost:5000
+Wait for all Pods to be in the "Running" state. 
 
-access website - sign up and write something
+> If not open from previous exercises: open up a new Terminal window using `minikube tunnel` 
 
+> Open [localhost:5000](localhost:5000), sign up to the message board, log in, and write a message. 
+
+We now have a message displayed in our app. What happens when we delete the pod that is hosting the website?
 
 ```kubectl get pods```
+
+> Copy the name of the pod and paste it into the following command
 
 ```kubectl delete pod message-board-xxxxx```
 
+```kubectl get pods```
 
-reload website - data still there even though pod was deleted
+> Wait for the new container to be started. Note: Kubernetes noticed the missing container, and automatically started another one to reach the desired state. 
 
+> Reload the Site 
+
+Notice that the message is still there. This is because our message was saved in our Persistent Volume, which gets attached to our container. The containers themselves are stateless and do not store any data. There are a few use-cases for storing data in a container (short-lived caches for example) but generally it is best practice to store persistent data in a Persistent Volume. 
 
 ### 5. Network Policy
 
-look at guestbook-all-in-one
+The last thing we will look at in this session is Network Policies. 
+
+Before applying the configuration file, look at guestbook-all-in-one.yaml file. 
 
 ```kubectl apply -f guestbook-all-in-one.yaml```
 
-```kubectl get pods```
+```kubectl get pods -w```
 
-If not running yet enter `minikube tunnel` in a second window
+> Wait for all the Pods to be "Ready"
 
-open up website
+> If not running yet enter `minikube tunnel` in a second window
 
-localhost:80
+Run ```kubectl get service``` to verify the port:
 
-write a note into the guestbook
+> Open [localhost:80](localhost:80) on your browser.
 
+> Write a note into the guestbook.
+
+More detailed information on Kubernetes Network Policies can be found [here](https://kubernetes.io/docs/concepts/services-networking/network-policies/) but for now we will create a simple one. 
+
+> Take a look at the network policy in networ-policy.yaml. All it does is prevent ingress traffic to the redis services to stop the frontend from retrieving messages.
 
 ```kubectl apply -f network-policy.yaml```
 
-look at policy - no ingress traffic allowed into redis
-
-
-reload website - message disappeared because no comms
-
-might take a few moments
+> Reload the webpage. Within a few moments the new policy should be enforced and the message disappear. 
+> :warning: This can take a few seconds. 
 
 ```kubectl delete -f network-policy.yaml```
 
+> Reload the webpage again. 
 
-reload website - message appears again
+It might take a few more moments as before, but eventually the message will reappear as the policy allows traffic to the redis pods once again. 
 
-might take a few moments
+
 
 
 
