@@ -2,7 +2,7 @@
 
 Welcome to this introductory Hands-On session for Kubernetes. 
 
-###Table of Contents
+### Table of Contents
 
 [Starting Minikube](https://github.com/cedricfeist/kubernetes-hands-on#0-starting-minikube)
 [Introduction to kubectl](https://github.com/cedricfeist/kubernetes-hands-on#1-introduction-to-kubectl)
