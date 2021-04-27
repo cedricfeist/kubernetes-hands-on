@@ -31,7 +31,13 @@ cd kubernetes-hands-on
 ------
 Reference on how to install minikube, as well as potential errors, check the [kubernetes website](https://minikube.sigs.k8s.io/docs/start/).
 
-```minikube start```
+Start minikube, remember to set the cni flag to calico as we will be using network policies at the end of the lab. 
+
+```
+minikube start --network-plugin=cni --cni=calico # Wait for all system pods to be in the `Running 1/1` state
+
+kubectl get pods -n kube-system
+```
 
 > :warning: Remember to start docker desktop if using docker as driver
 
@@ -281,6 +287,8 @@ kubectl get pods -w
 Run `kubectl get service` to verify the port:
 
 > Open [localhost:80](http://localhost:80) on your browser
+
+:warning: Port 80 will require root privileges, so check your `minikube start` window to enter your password, if the page doesn't open. 
 
 > Write a note into the guestbook
 
