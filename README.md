@@ -210,6 +210,8 @@ You can leave these pods running, but if you want to delete them here are the st
 kubectl delete -f hostname-namespace.yaml
 ```
 
+> :warning: This operation may take a few minutes. 
+
 Deleting a namespace will delete all resources within it. 
 
 ### 4. Stateless vs Stateful Apps
