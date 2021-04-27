@@ -236,7 +236,9 @@ Some of the pods might take a while to be fully available. Instead of running th
 kubectl get pods -n message-board -w
 ```
 
-Wait for all Pods to be in the "Running" state. 
+Wait for The Pod to be in the "Running" state. 
+
+:warning: Once the pods are running, press `ctrl + c` to go back. 
 
 > If not open from previous exercises: open up a new Terminal window using `minikube tunnel` 
 
@@ -244,14 +246,10 @@ Wait for all Pods to be in the "Running" state.
 
 We now have a message displayed in our app. What happens when we delete the pod that is hosting the website?
 
-```
-kubectl get pods
-```
-
-> Copy the name of the pod and paste it into the following command
+The following command will delete our pod running in the message-board namespace.
 
 ```
-kubectl delete pod message-board-xxxxx
+kubectl delete pod -l name=message-board -n message-board
 
 kubectl get pods
 ```
@@ -275,6 +273,8 @@ kubectl get pods -w
 ```
 
 > Wait for all the Pods to be "Ready"
+
+:warning: Once the pods are Ready you can press `ctrl + c` to go back. 
 
 > If not running yet enter `minikube tunnel` in a second window
 
@@ -305,7 +305,19 @@ kubectl delete -f network-policy.yaml
 It might take a few more moments as before, but eventually the message will reappear as the policy allows traffic to the redis pods once again. 
 
 
+### Stopping Minikube
+------
+Feel free to keep the cluster running and experimenting with Kubernetes. 
 
+Once you are done, you can stop the cluster:
+
+```
+minikube stop
+```
+
+This stops the minikube cluster, but retains the state for when you start the cluster again via `minikube start`.
+
+If you ever break your cluster, or want to start fresh you can delete the cluster with `minikube delete`. If you have multiple clusters this changes to `minikube delete --all`. 
 
 
 
