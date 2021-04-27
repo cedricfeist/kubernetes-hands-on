@@ -53,28 +53,34 @@ Completion can also be enabled for this alias, this way Tab can be pressed to sh
 
 If you are using BASH, use these steps:
 
-```source <(kubectl completion bash)``` This sets up autocompletion for the current shell
+```
+source <(kubectl completion bash #This sets up autocompletion for the current shell
 
-```echo "source <(kubectl completion bash)" >> ~/.bashrc``` 
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+``` 
 
 This sets up autocomplete permanently - but only takes effect for new terminal sessions. 
 
 
-```alias k=kubectl```
+```
+alias k=kubectl
 
-```complete -F __start_kubectl k```
+complete -F __start_kubectl k
+```
 
 ###### ZSH
 
 If you are using ZSH, use these steps:
 
-```source <(kubectl completion zsh)```
+```
+source <(kubectl completion zsh
 
-```echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc```
+echo "[[ $commands[kubectl] ]] && source <(kubectl completion zsh)" >> ~/.zshrc
 
-```alias k=kubectl```
+alias k=kubectl
 
-```complete -F __start_kubectl k```
+complete -F __start_kubectl k
+```
 
 #### Convenient Resources
 
@@ -111,44 +117,54 @@ Or, for more involved troubleshooting, opening a terminal session to a container
 
 It's time to start our first Pod. 
 
-```kubectl run firstpod --image=oguzpastirmaci/hostname```
+```
+kubectl run firstpod --image=oguzpastirmaci/hostname
+```
 
 To make this pod accessible from outside the cluster, we need to create a service.
 
-```kubectl expose pod firstpod --port=8000 --type=LoadBalancer```
+```
+kubectl expose pod firstpod --port=8000 --type=LoadBalancer
+```
 
 In a production environment, we would have an IP Management system that associates available IPs with the LoadBalancer Service we just created. 
 
 Minikube has built-in functionality to allow us to access this traffic from our local machine. 
 
-```open a new terminal/cmd instance```
+> open a new terminal/cmd instance
 
-```minikube tunnel```
+```
+minikube tunnel
+```
 
 You might have to wait a few seconds before the tunnel is established
 
-```kubectl get service``` Note that a port number and the IP of our Localhost are now displayed here
+```kubectl get service``` :warning: Note that a port number and the IP of our Localhost are displayed here
 
-> Open [localhost:8000](localhost:8000) on the browser of your choice.
+> Open [localhost:8000](http://localhost:8000) on the browser of your choice.
 
 This simple app displays the hostname of the container we are connected to. Since we only have one right now, this won't change when refreshing the page. 
 
 
 We can now observe the objects we just created and look into the specification using the `describe` keyword.
 
-```kubectl get pods```
+```
+kubectl get pods
 
-```kubectl describe pod firstpod```
+kubectl describe pod firstpod
 
-```kubectl get services```
+kubectl get services
 
-```kubectl describe service firstpod```
+kubectl describe service firstpod
+```
 
 Because we manually created this app, we will delete it for now as there are better ways to deploy on Kubernetes. 
 
-```kubectl delete service firstpod```
+```
+kubectl delete service firstpod
 
-```kubectl delete pod firstpod```
+kubectl delete pod firstpod
+```
 
 
 ### 3. Declarative Deployments
@@ -157,15 +173,19 @@ Before entering the next commands, take a look at the hostname-namespace, hostna
 
 Once you have taken note of the configuration, apply the configuration stored in these files via the following commands.
 
-```kubectl apply -f hostname-namespace.yaml```
+```
+kubectl apply -f hostname-namespace.yaml
 
-```kubectl apply -f hostname-deployment.yaml```
+kubectl apply -f hostname-deployment.yaml
 
-```kubectl apply -f hostname-service.yaml```
+kubectl apply -f hostname-service.yaml
+```
 
 We just created a number of resources. We could look at these individually using the commands above, or - because we grouped them in a namespace - we can look at all the resources in the namespace using the following command. 
 
-```kubectl get all -n hostname```
+```
+kubectl get all -n hostname
+```
 
 From this output, you should be able to see which port the app is running on. 
 
@@ -183,11 +203,13 @@ You should see an output: `deployment.apps/message-board configured`
 
 You can leave these pods running, but if you want to delete them here are the steps to do so. 
 
-```kubectl delete -f namespace.yaml```
+```
+kubectl delete -f namespace.yaml
 
-```kubectl delete -f hostname-deployment.yaml -n hostname```
+kubectl delete -f hostname-deployment.yaml -n hostname
 
-```kubectl delete -f hostname -service -n hostname```
+kubectl delete -f hostname -service -n hostname
+```
 
 
 ### 4. Stateless vs Stateful Apps
@@ -196,35 +218,45 @@ Before we find out how Persistent Volumes and Persistent Volume Claims can help 
 
 Once you have taken a look, apply the configuration...
 
-```kubectl apply -f message-board-all-in-one.yaml```
+```
+kubectl apply -f message-board-all-in-one.yaml
+```
 
 ...and see all the resources created. 
 
-```kubectl get all -n message-board```
+```
+kubectl get all -n message-board
+```
 
 Some of the pods might take a while to be fully available. Instead of running the same command over and over to monitor the readiness of a resource, we can use the `-w` flag to watch the resource for changes. 
 
-```kubectl get pods -n message-board -w```
+```
+kubectl get pods -n message-board -w
+```
 
 Wait for all Pods to be in the "Running" state. 
 
 > If not open from previous exercises: open up a new Terminal window using `minikube tunnel` 
 
-> Open [localhost:5000](localhost:5000), sign up to the message board, log in, and write a message. 
+> Open [localhost:5000](http://localhost:5000), sign up to the message board, log in, and write a message. 
 
 We now have a message displayed in our app. What happens when we delete the pod that is hosting the website?
 
-```kubectl get pods```
+```
+kubectl get pods
+```
 
 > Copy the name of the pod and paste it into the following command
 
-```kubectl delete pod message-board-xxxxx```
+```
+kubectl delete pod message-board-xxxxx
 
-```kubectl get pods```
+kubectl get pods
+```
 
 > Wait for the new container to be started. Note: Kubernetes noticed the missing container, and automatically started another one to reach the desired state. 
 
-> Reload the Site 
+> Reload the Page 
 
 Notice that the message is still there. This is because our message was saved in our Persistent Volume, which gets attached to our container. The containers themselves are stateless and do not store any data. There are a few use-cases for storing data in a container (short-lived caches for example) but generally it is best practice to store persistent data in a Persistent Volume. 
 
@@ -234,17 +266,19 @@ The last thing we will look at in this session is Network Policies.
 
 Before applying the configuration file, look at guestbook-all-in-one.yaml file. 
 
-```kubectl apply -f guestbook-all-in-one.yaml```
+```
+kubectl apply -f guestbook-all-in-one.yaml
 
-```kubectl get pods -w```
+kubectl get pods -w
+```
 
 > Wait for all the Pods to be "Ready"
 
 > If not running yet enter `minikube tunnel` in a second window
 
-Run ```kubectl get service``` to verify the port:
+Run `kubectl get service` to verify the port:
 
-> Open [localhost:80](localhost:80) on your browser.
+> Open [localhost:80](http://localhost:80) on your browser.
 
 > Write a note into the guestbook.
 
@@ -252,12 +286,16 @@ More detailed information on Kubernetes Network Policies can be found [here](htt
 
 > Take a look at the network policy in networ-policy.yaml. All it does is prevent ingress traffic to the redis services to stop the frontend from retrieving messages.
 
-```kubectl apply -f network-policy.yaml```
+```
+kubectl apply -f network-policy.yaml
+```
 
 > Reload the webpage. Within a few moments the new policy should be enforced and the message disappear. 
 > :warning: This can take a few seconds. 
 
-```kubectl delete -f network-policy.yaml```
+```
+kubectl delete -f network-policy.yaml
+```
 
 > Reload the webpage again. 
 
