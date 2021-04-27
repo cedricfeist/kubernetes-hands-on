@@ -28,7 +28,7 @@ cd kubernetes-hands-on
 ```
 
 ### 0. Starting Minikube
-
+------
 Reference on how to install minikube, as well as potential errors, check the [kubernetes website](https://minikube.sigs.k8s.io/docs/start/).
 
 ```minikube start```
@@ -90,7 +90,7 @@ complete -F __start_kubectl k
 
 
 ### 1. Introduction to kubectl
-
+------
 Kubernetes can be interacted with via the Kubernetes command line interface, Kubectl. Kubectl talks to the Kubernetes API to interact with the cluster. When starting Minikube, kubectl will automatically be configured to connect to the minikube cluster. 
 
 First, we will try some basic "read" commands to show how you can get information from your cluster. See the cheat sheets above for some more commands to try, as well as shortened versions of the commands for real Pros. :sunglasses:
@@ -114,7 +114,7 @@ Or, for more involved troubleshooting, opening a terminal session to a container
 
 
 ### 2. Starting a Pod - Imperative
-
+------
 It's time to start our first Pod. 
 
 ```
@@ -168,7 +168,7 @@ kubectl delete pod firstpod
 
 
 ### 3. Declarative Deployments
-
+------
 Before entering the next commands, take a look at the *hostname-namespace*, *hostname-deployment*, and *hostname-service* YAML files in the cloned repository. 
 
 Once you have taken note of the configuration, apply the configuration stored in these files via the following commands.
@@ -210,9 +210,10 @@ You can leave these pods running, but if you want to delete them here are the st
 kubectl delete -f hostname-namespace.yaml
 ```
 
+Deleting a namespace will delete all resources within it. 
 
 ### 4. Stateless vs Stateful Apps
-
+------
 Before we find out how Persistent Volumes and Persistent Volume Claims can help us with designing Apps, look at message-board-all-in-one.yaml. Instead of keeping each resource in a separate file, we have combined them all in one YAML file which contains the entire configuration of the application. 
 
 Once you have taken a look, apply the configuration...
@@ -260,7 +261,7 @@ kubectl get pods
 Notice that the message is still there. This is because our message was saved in our Persistent Volume, which gets attached to our container. The containers themselves are stateless and do not store any data. There are a few use-cases for storing data in a container (short-lived caches for example) but generally it is best practice to store persistent data in a Persistent Volume. 
 
 ### 5. Network Policy
-
+------
 The last thing we will look at in this session is Network Policies. 
 
 Before applying the configuration file, look at *guestbook-all-in-one.yaml* file
