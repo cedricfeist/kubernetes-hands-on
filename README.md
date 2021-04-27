@@ -283,7 +283,7 @@ Run `kubectl get service` to verify the port:
 
 More detailed information on Kubernetes Network Policies can be found [here](https://kubernetes.io/docs/concepts/services-networking/network-policies/) but for now we will create a simple one. 
 
-> Take a look at the network policy in networ-policy.yaml. All it does is prevent ingress traffic to the redis services to stop the frontend from retrieving messages.
+> Take a look at the network policy in *network-policy.yaml*. All it does is prevent ingress traffic to the redis services to stop the frontend from retrieving messages.
 
 ```
 kubectl apply -f network-policy.yaml
