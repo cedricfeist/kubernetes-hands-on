@@ -169,7 +169,7 @@ kubectl delete pod firstpod
 
 ### 3. Declarative Deployments
 
-Before entering the next commands, take a look at the hostname-namespace, hostname-deployment, and hostname-service YAML files in the cloned repository. 
+Before entering the next commands, take a look at the *hostname-namespace*, *hostname-deployment*, and *hostname-service* YAML files in the cloned repository. 
 
 Once you have taken note of the configuration, apply the configuration stored in these files via the following commands.
 
@@ -197,18 +197,17 @@ You might have seen that the deployment only started 1 pod. This is not much dif
 
 > Change the number next to `replicas: ` to 3, save it, and update the configuration on your cluster using `kubectl apply -f hostname-deployment.yaml`
 
-You should see an output: `deployment.apps/message-board configured`
+You should see an output: `deployment.apps/hostname configured`
 
 > Refresh the page on your browser (ctrl/cmd + shift + r) to show change between pods. Every now and then the hostname should change, to show that the LoadBalancer is directing traffic to a new Pod. 
+
+> :warning: Caching mechanisms might prevent the page from refreshing properly to see the hostname change. 
+> Try `curl http://localhost:port` in your Terminal to see the LadBalancing mechanism switch between the pods. 
 
 You can leave these pods running, but if you want to delete them here are the steps to do so. 
 
 ```
-kubectl delete -f namespace.yaml
-
-kubectl delete -f hostname-deployment.yaml -n hostname
-
-kubectl delete -f hostname -service -n hostname
+kubectl delete -f hostname-namespace.yaml
 ```
 
 
@@ -264,7 +263,7 @@ Notice that the message is still there. This is because our message was saved in
 
 The last thing we will look at in this session is Network Policies. 
 
-Before applying the configuration file, look at guestbook-all-in-one.yaml file. 
+Before applying the configuration file, look at *guestbook-all-in-one.yaml* file
 
 ```
 kubectl apply -f guestbook-all-in-one.yaml
@@ -278,9 +277,9 @@ kubectl get pods -w
 
 Run `kubectl get service` to verify the port:
 
-> Open [localhost:80](http://localhost:80) on your browser.
+> Open [localhost:80](http://localhost:80) on your browser
 
-> Write a note into the guestbook.
+> Write a note into the guestbook
 
 More detailed information on Kubernetes Network Policies can be found [here](https://kubernetes.io/docs/concepts/services-networking/network-policies/) but for now we will create a simple one. 
 
@@ -290,14 +289,15 @@ More detailed information on Kubernetes Network Policies can be found [here](htt
 kubectl apply -f network-policy.yaml
 ```
 
-> Reload the webpage. Within a few moments the new policy should be enforced and the message disappear. 
+> Reload the webpage. Within a few moments the new policy should be enforced and the message disappear
+
 > :warning: This can take a few seconds. 
 
 ```
 kubectl delete -f network-policy.yaml
 ```
 
-> Reload the webpage again. 
+> Reload the webpage again
 
 It might take a few more moments as before, but eventually the message will reappear as the policy allows traffic to the redis pods once again. 
 
