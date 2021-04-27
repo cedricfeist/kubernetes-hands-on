@@ -21,9 +21,11 @@ First things first:
 
 Start by cloning the repo into your favourite directory.
 
-```git clone https://github.com/cedricfeist/kubernetes-hands-on```
+```
+git clone https://github.com/cedricfeist/kubernetes-hands-on
 
-```cd kubernetes-hands-on```
+cd kubernetes-hands-on
+```
 
 ### 0. Starting Minikube
 
