@@ -34,7 +34,8 @@ Reference on how to install minikube, as well as potential errors, check the [ku
 Start minikube, remember to set the cni flag to calico as we will be using network policies at the end of the lab. 
 
 ```
-minikube start --network-plugin=cni --cni=calico # Wait for all system pods to be in the `Running 1/1` state
+minikube start --network-plugin=cni --cni=calico 
+# Wait for all system pods to be in the `Running 1/1` state
 
 kubectl get pods -n kube-system
 ```
@@ -242,7 +243,7 @@ Some of the pods might take a while to be fully available. Instead of running th
 kubectl get pods -n message-board -w
 ```
 
-Wait for The Pod to be in the "Running" state. 
+Wait for The Pod to be Running and Ready. 
 
 :warning: Once the pods are running, press `ctrl + c` to go back. 
 
@@ -278,7 +279,7 @@ kubectl apply -f guestbook-all-in-one.yaml
 kubectl get pods -w
 ```
 
-> Wait for all the Pods to be "Ready"
+> Wait for all the Pods to be Running and Ready
 
 :warning: Once the pods are Ready you can press `ctrl + c` to go back. 
 
