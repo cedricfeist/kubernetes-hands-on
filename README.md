@@ -171,6 +171,10 @@ Because we manually created this app, we will delete it for now as there are bet
 kubectl delete service firstpod
 
 kubectl delete pod firstpod
+
+:warning: On some versions of kubectl the "run" command may create a deployment.
+:warning: In this case, deleting the pod will cause Kubernetes to restart a new one.  
+:warning: To delete the deployment, enter `kubectl delete deployment firstpod`
 ```
 
 
