@@ -262,7 +262,7 @@ The following command will delete our pod running in the message-board namespace
 ```
 kubectl delete pod -l name=message-board -n message-board
 
-kubectl get pods
+kubectl get pods -n message-board
 ```
 
 > Wait for the new container to be started. Note: Kubernetes noticed the missing container, and automatically started another one to reach the desired state. 
