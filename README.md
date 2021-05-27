@@ -34,7 +34,7 @@ Reference on how to install minikube, as well as potential errors, check the [ku
 Start minikube, remember to set the cni flag to calico as we will be using network policies at the end of the lab. 
 
 ```
-minikube start --network-plugin=cni --cni=calico 
+minikube start --driver=docker --network-plugin=cni --cni=calico 
 # Wait for all system pods to be in the `Running 1/1` state
 
 kubectl get pods -n kube-system
