@@ -34,9 +34,12 @@ Reference on how to install minikube, as well as potential errors, check the [ku
 Start minikube, remember to set the cni flag to calico as we will be using network policies at the end of the lab. 
 
 ```
-minikube start --driver=docker --network-plugin=cni --cni=calico 
-# Wait for all system pods to be in the `Running 1/1` state
+minikube start --driver=docker --network-plugin=cni --cni=calico
+```
 
+Wait for all system pods to be in the `Running 1/1` state
+
+```
 kubectl get pods -n kube-system
 ```
 
@@ -44,9 +47,13 @@ kubectl get pods -n kube-system
 
 > :warning: If you had an old installation of Minikube which you updated and are getting errors, try:
 
-```minikube delete --all --purge```
+```
+minikube delete --all --purge
+```
 
-```docker system prune```
+```
+docker system prune
+```
 
 #### (Optional but convenient) On Mac: 
 
@@ -153,14 +160,16 @@ minikube tunnel
 
 You might have to wait a few seconds before the tunnel is established
 
-:warning: There will be no dynamic output. ":running_man: Starting tunnel for service firstpod." 
+:warning: There will be no dynamic output. ```:running_man: Starting tunnel for service firstpod.``` Indicates the tunnel was established.
 
-```kubectl get service``` :warning: Note that a port number and the IP of our Localhost are displayed here. If an IP appears under External IP, the tunnel was successfully established.
+```
+kubectl get service
+``` 
+:warning: Note that a port number and the IP of our Localhost are displayed here. If an IP appears under External IP, the tunnel was successfully established.
 
 > Open [localhost:8000](http://localhost:8000) on the browser of your choice.
 
 This simple app displays the hostname of the container we are connected to. Since we only have one right now, this won't change when refreshing the page. 
-
 
 We can now observe the objects we just created and look into the specification using the `describe` keyword.
 
@@ -317,6 +326,9 @@ kubectl apply -f network-policy.yaml
 > Reload the webpage. Within a few moments the new policy should be enforced and the message disappear
 
 > :warning: This can take a few seconds. 
+
+> :warning: Caching mechanisms might prevent the page from refreshing properly to see the message disappear. 
+> Try `curl http://localhost:port` in your Terminal to load the current state of the page, and see notice the missing messages in the message <div>. 
 
 ```
 kubectl delete -f network-policy.yaml
