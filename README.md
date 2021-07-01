@@ -114,15 +114,22 @@ Namespaces are a logical way to group resources in a cluster into separate space
 
 Some other useful commands include checking the logs of a container running in a Pod:
 
-```kubectl logs my-pod-name```
+```
+kubectl logs etcd-minikube -n kube-system
+``` 
 
 Or, for more involved troubleshooting, opening a terminal session to a container. 
-```kubectl exec --stdin --tty my-pod-name -- /bin/sh```
+
+```
+kubectl exec --stdin --tty etcd-minikube -n kube-system -- /bin/sh
+```
+
+Type `exit` to exit the shell session. 
 
 
 ### 2. Starting a Pod - Imperative
 ------
-It's time to start our first Pod. 
+It's time to start our first Pod. :running_man: 
 
 ```
 kubectl run firstpod --image=oguzpastirmaci/hostname
@@ -146,7 +153,9 @@ minikube tunnel
 
 You might have to wait a few seconds before the tunnel is established
 
-```kubectl get service``` :warning: Note that a port number and the IP of our Localhost are displayed here
+:warning: There will be no dynamic output. ":running_man: Starting tunnel for service firstpod." 
+
+```kubectl get service``` :warning: Note that a port number and the IP of our Localhost are displayed here. If an IP appears under External IP, the tunnel was successfully established.
 
 > Open [localhost:8000](http://localhost:8000) on the browser of your choice.
 
