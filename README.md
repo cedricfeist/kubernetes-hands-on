@@ -160,7 +160,7 @@ minikube tunnel
 
 You might have to wait a few seconds before the tunnel is established
 
-:warning: There will be no dynamic output. ```:running_man: Starting tunnel for service firstpod.``` Indicates the tunnel was established.
+:warning: There will be no dynamic output. :running_man: `Starting tunnel for service firstpod.` Indicates the tunnel was established.
 
 ```
 kubectl get service
@@ -175,11 +175,14 @@ We can now observe the objects we just created and look into the specification u
 
 ```
 kubectl get pods
-
+```
+```
 kubectl describe pod firstpod
-
+```
+```
 kubectl get services
-
+```
+```
 kubectl describe service firstpod
 ```
 
@@ -187,13 +190,14 @@ Because we manually created this app, we will delete it for now as there are bet
 
 ```
 kubectl delete service firstpod
-
-kubectl delete pod firstpod
-
-:warning: On some versions of kubectl the "run" command may create a deployment.
-:warning: In this case, deleting the pod will cause Kubernetes to restart a new one.  
-:warning: To delete the deployment, enter `kubectl delete deployment firstpod`
 ```
+```
+kubectl delete pod firstpod
+```
+> :warning: On some versions of kubectl the "run" command may create a deployment.
+> :warning: In this case, deleting the pod will cause Kubernetes to restart a new one.  
+> :warning: To delete the deployment, enter `kubectl delete deployment firstpod`.
+
 
 
 ### 3. Declarative Deployments
@@ -279,7 +283,8 @@ The following command will delete our pod running in the message-board namespace
 
 ```
 kubectl delete pod -l name=message-board -n message-board
-
+```
+```
 kubectl get pods -n message-board
 ```
 
@@ -297,7 +302,8 @@ Before applying the configuration file, look at *guestbook-all-in-one.yaml* file
 
 ```
 kubectl apply -f guestbook-all-in-one.yaml
-
+```
+```
 kubectl get pods -w
 ```
 
