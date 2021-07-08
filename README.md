@@ -152,7 +152,7 @@ In a production environment, we would have an IP Management system that associat
 
 Minikube has built-in functionality to allow us to access this traffic from our local machine. 
 
-> open a new terminal/cmd instance
+> :warning: open a new terminal/cmd instance
 
 ```
 minikube tunnel
@@ -165,7 +165,7 @@ You might have to wait a few seconds before the tunnel is established
 ```
 kubectl get service
 ``` 
-:warning: Note that a port number and the IP of our Localhost are displayed here. If an IP appears under External IP, the tunnel was successfully established.
+Note that a port number and the IP of our Localhost are displayed here. If an IP appears under External IP, the tunnel was successfully established.
 
 > Open [localhost:8000](http://localhost:8000) on the browser of your choice.
 
